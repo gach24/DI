@@ -1,4 +1,4 @@
-package exercise01;
+package unit01.exercise01;
 
 import examples.unit01.exercise01.Menu;
 import org.junit.jupiter.api.Disabled;
