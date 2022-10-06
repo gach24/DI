@@ -16,14 +16,17 @@ public class ExamService implements IExamService {
         this.questionsRepository = qr;
     }
 
+
     public Optional<Exam> findByName(String name) {
         return examRepository.getAll()
                 .stream()
-                .filter(e -> e.getName().equals(name))
+                .filter(exam -> exam.getName().equals(name))
                 .findFirst();
+
     }
 
     public Exam findByNameWithQuestions(String name) {
+
         Optional<Exam> optionalExam = findByName(name);
         Exam exam = null;
         if (optionalExam.isPresent())
@@ -33,6 +36,7 @@ public class ExamService implements IExamService {
             exam.setQuestions(questions);
         }
         return exam;
+
     }
 
 }

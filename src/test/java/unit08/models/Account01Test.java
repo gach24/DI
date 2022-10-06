@@ -242,12 +242,12 @@ public class Account01Test {
      * if assertion fail show descriptive message
      */
     @Test
+    @DisplayName("Prueba de mensajes ...")
     void testWithMessage() {
-        /*
+
          Account account = new Account();
-         assertNotNull(account.getPersonName(), "La cuenta no puede ser nula");
+         // assertNotNull(account.getPersonName(), "La cuenta no puede ser nula");
          assertEquals("Germans", account.getPersonName(), "El nombre de la cuenta no es el esperado");
-         */
         /*
         Account account = new Account();
         assertNotNull(
@@ -281,6 +281,19 @@ public class Account01Test {
         fail();
     }
 
+    @Test
+    void testName() {
+        Account account = new Account("German", new BigDecimal("1000.12345"));
 
+        assertNotNull(account.getPersonName());
+        assertEquals("German", account.getPersonName());
+        assertNotNull(account.getBalance());
+        assertEquals("1000.12345", account.getBalance().toPlainString());
+        assertEquals(1000, account.getBalance().intValue());
+        assertEquals(1000.12345, account.getBalance().doubleValue());
+        //  assertEquals(new BigDecimal(1000.12345).doubleValue(), account.getBalance().doubleValue());
+
+
+    }
 
 }

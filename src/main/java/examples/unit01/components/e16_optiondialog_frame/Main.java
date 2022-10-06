@@ -1,4 +1,4 @@
-package examples.unit01.components.e16_OptionDialog_Frame;
+package examples.unit01.components.e16_optiondialog_frame;
 
 import examples.unit01.components.e15_gridbag.FontFrame;
 

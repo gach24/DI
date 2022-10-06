@@ -1,12 +1,13 @@
 package examples.unit01.exercise01;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  *
  */
-public class Match {
+public class Match implements Serializable {
    // PRIVATE FIELDS
    private String local;
    private String visitor;
@@ -27,6 +28,12 @@ public class Match {
       this.division  = division;
    }
 
+   public Match(String l, String v, Division d, int lr, int vr, Date date) {
+      this(l, v, d);
+      this.localResult = lr;
+      this.visitorResult = vr;
+      this.date = date;
+   }
 
    // PUBLIC METHODS
    public String  getLocal() { return local; }
@@ -37,7 +44,20 @@ public class Match {
    public void    setLocalResult(int localResult) { this.localResult = localResult; }
    public int     getVisitorResult() { return visitorResult; }
    public void    setVisitorResult(int visitorResult) { this.visitorResult = visitorResult; }
-   public String  getDate() { return new SimpleDateFormat("dd-MM-yyyy").format(date); }
+   public String  getDate() {
+      return new SimpleDateFormat("dd-MM-yyyy").format(date);
+   }
    public void    setDate(Date date) { this.date = date; }
+   public Division getDivision() { return division;  }
+   public void setDivision(Division division) { this.division = division; }
 
+   public String getResult() {
+      return getLocalResult() + " - " + getVisitorResult();
+   }
+   @Override
+   public String toString() {
+      return "-> " + local + ": " + localResult + " - " +
+              visitor + ": " + visitorResult +
+              " (" + getDivision() + ")" + "(" + getDate() + ")" ;
+   }
 }

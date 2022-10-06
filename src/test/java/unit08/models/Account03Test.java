@@ -4,11 +4,14 @@ import examples.unit08.models.Account;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -84,18 +87,32 @@ public class Account03Test {
          * Show how to enable test when system property matches with something
          */
         @Test
-        @EnabledIfSystemProperty(named = "os.arch", matches = "32")
+        @EnabledIfSystemProperty(named = "os.version", matches = "10.0")
         void testEnableOnProperty() {
+            /*
+             * Runs but its more complicated
+            Properties properties = System.getProperties();
+            for(Map.Entry<Object, Object> entry: properties.entrySet())
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+             */
             System.getProperties().forEach((k, v) -> System.out.println(k + ": " + v));
         }
+
+
 
         /*
          * Show how to enable test when system property matches with something
          * -ea -D ENV=dev
          */
         @Test
-        @DisabledIfSystemProperty(named = "os.arch", matches = "amd64")
+        @DisabledIfSystemProperty(named = "os.arch", matches = "64")
         void testDisableOnProperty() {
+            /*
+             * Runs but its more complicated
+            Properties properties = System.getProperties();
+            for(Map.Entry<Object, Object> entry: properties.entrySet())
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+             */
             System.getProperties().forEach((k, v) -> System.out.println(k + ": " + v));
         }
 
@@ -106,6 +123,12 @@ public class Account03Test {
         @Test
         @EnabledIfSystemProperty(named = "DEV", matches = "dev")
         void testEnableWhenSystemPropertyDev() {
+            /*
+             * Runs but its more complicated
+            Properties properties = System.getProperties();
+            for(Map.Entry<Object, Object> entry: properties.entrySet())
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+             */
             System.getProperties().forEach((k, v) -> System.out.println(k + ": " + v));
         }
     }
@@ -122,6 +145,13 @@ public class Account03Test {
         @Test
         @EnabledIfEnvironmentVariable(named = "ENVIRONMENT", matches = "dev")
         void testEnableWhenEnvironmentVariable() {
+            /*
+            Map<String, String> envs = System.getenv();
+            for(Map.Entry<String, String> entry: envs.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+            */
+
             System.getenv().forEach((k, v)-> System.out.println(k + ": " + v));
         }
     }
@@ -136,7 +166,7 @@ public class Account03Test {
 
         /*
          * Show how to work assumptions
-         * -ea -D ENV=dev
+         * -ea -DENV=dev
          */
         @Test
         void testAssumption() {
@@ -171,18 +201,17 @@ public class Account03Test {
          * Usually uses when there is something aleatory
          */
         @Tag("repeated")
-        @DisplayName("Probando:")
+        @DisplayName("Probando repeted test: ")
         @RepeatedTest(value = 5, name = "{displayName} Repetición número = {currentRepetition} de {totalRepetitions}")
         void testRepeated(RepetitionInfo info) {
-            if (info.getCurrentRepetition() == 3)
-                System.out.println("La 3!!!");
+            System.out.println(info.getCurrentRepetition());
         }
 
-        @Tag("parameterized")
         /*
          * Show how to work ParameterizedTest Attribute
          * The array of values can be strings, ints, doubles, ...
          */
+        @Tag("parameterized")
         @ParameterizedTest(name = "Numero {index} con valor {argumentsWithNames}")
         @ValueSource(strings = {"100", "200", "300", "500", "700", "1500.12345"})
         void testParameterized(String amount) {
@@ -192,19 +221,17 @@ public class Account03Test {
             assertTrue(account.getBalance().compareTo(BigDecimal.ZERO) >= 0);
         }
 
-        @Tag("parameterized")
         /*
          * Show how to work ParameterizedTest Attribute
          * The array of values is in cvs format
          */
+        @Tag("parameterized")
         @ParameterizedTest(name = "Numero {index} con balance: {0}, debito: {1} y nombre: {2}")
         @CsvSource({"100,100,German","200,200,Raquel", "330,300,Samuel", "401,400,Daniel", "500,500,Maria", "6000,1000.12345,Vanesa"})
-        // @CsvFileSource(resources = "/data.cvs")
+        // @CsvFileSource(resources = "/data.csv")
         // @MethodSource(value = "amountList")
         void testParameterizedWithCVS(String balance, String value, String name) {
-            Account account = new Account("German", new BigDecimal("1500.12345"));
-            account.setPersonName(name);
-            account.setBalance(new BigDecimal(balance));
+            Account account = new Account(name, new BigDecimal(balance));
             account.debit(new BigDecimal(value));
             assertNotNull(account.getBalance());
             assertEquals(name, account.getPersonName());
@@ -224,7 +251,7 @@ public class Account03Test {
         @Test
         @Timeout(5)
         void testTimeOutInSeconds() throws InterruptedException {
-            TimeUnit.SECONDS.sleep(4);
+            TimeUnit.SECONDS.sleep(5);
         }
 
 
