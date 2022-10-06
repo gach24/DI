@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import static java.util.concurrent.TimeUnit.*;
 
 public class Parallel {
-    private final static Logger LOGGER = Logger.getLogger("examples.unit01.streams.parallel",);
+    private final static Logger LOGGER = Logger.getLogger("examples.unit01.streams.parallel");
     public static void main(String[] args) {
         // withOutParallel();
 
@@ -28,7 +28,7 @@ public class Parallel {
                 })
                 .filter(f -> f.equals("Limón"))
                 .findAny()
-                .get();
+                .orElseThrow();
         long t2 = System.currentTimeMillis();
         System.out.println("Tiempo: " + (t2 - t1));
 
@@ -48,7 +48,7 @@ public class Parallel {
                 })
                 .filter(f -> f.equals("Limón"))
                 .findAny()
-                .get();
+                .orElseThrow();
         long t2 = System.currentTimeMillis();
         System.out.println("Tiempo: " + (t2 - t1));
 
