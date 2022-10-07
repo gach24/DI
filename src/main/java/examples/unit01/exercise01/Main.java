@@ -86,7 +86,7 @@ public class Main {
 
     private static String showMatchesDescending() {
         return matches.entrySet().stream()
-                .sorted((e1, e2) -> e1.getValue().getLocal().compareTo(e2.getValue().getLocal()))
+                .sorted((e1, e2) -> e1.getValue().getDate().compareTo(e2.getValue().getLocal()))
                 .map(entry -> (entry.getKey() + 1) + ". " + entry.getValue() )
                 .collect(Collectors.joining(System.lineSeparator()));
     }

@@ -29,7 +29,7 @@ public class Streams {
         Stream<String> fruits = Stream.of("Naranja", "Manzana", "Plátano", "Limón");
 
         // loop through stream
-        // fruits.forEach(fruit -> System.out.println(fruit));
+        // fruits.forEach(fruit -> System.out.println(fruit)); // Another way
         fruits.forEach(System.out::println);
 
         // Method two
@@ -82,7 +82,7 @@ public class Streams {
 
         System.out.println("************* Example three *****************");
         Stream<Fruit> otherFruits = Stream.of("Naranja", "Manzana", "Plátano", "Limón")
-                // .map(fruit -> new Fruit(fruit)) another way
+                // .map(fruit -> new Fruit(fruit)) // another way
                 .map(Fruit::new); // Change string to Fruit class
         otherFruits.forEach(System.out::println);
 
