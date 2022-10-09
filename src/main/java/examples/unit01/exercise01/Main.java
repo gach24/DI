@@ -12,28 +12,18 @@ public class Main {
         load();
         read();
         while (true) {
-            int option = showMenu();
+            int option = menu.getOptionMenu();
             switch (option) {
-                case 0:
-                    System.out.println("Opción incorrecta");
-                    break;
-                case 1:
-                    addNewMatch();
-                    break;
-                case 2:
-                    System.out.println(showMatches());
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    System.out.println(showMatchesDescending());
-                    break;
-                case 5:
-                    break;
-                case 6:
+                case 0 -> System.out.println("Opción incorrecta");
+                case 1 -> addMatch();
+                case 2 -> System.out.println(showMatches());
+                case 3 -> delMatch();
+                case 4 -> System.out.println(showMatchesDescending());
+                case 5 -> System.out.println(showMarchesByDivison());
+                case 6 -> {
                     save();
                     System.exit(0);
-                    break;
+                }
             }
         }
     }
@@ -47,41 +37,21 @@ public class Main {
         menu.addOption("Salir");
     }
 
-    private static int showMenu() {
-        System.out.println("Opciones: ");
-        System.out.println(menu.getStringMenu());
-        System.out.println("Elija opción: ");
-        return menu.getOption();
-    }
-
-    private static void addNewMatch() {
-        System.out.println("Introduce equipo local: ");
-        String local = menu.getTeamName();
-        System.out.println(("Introduce equipo visitante: "));
-        String visitor = menu.getTeamName();
-        System.out.println("Introduce resultado del equipo local: ");
-        int localResult = menu.getResult();
-        System.out.println("Introduce resultado del equipo visitante: ");
-        int visitorResult = menu.getResult();
-        System.out.println("Introduce la división del partido: ");
-        Division division = menu.getDivision();
-        System.out.println("Introduce la fecha en formato dd/mm/aaaa");
-        Date date = menu.getDate();
-        matches.put(
-                matches.size(),
-                new Match(local, visitor, division, localResult, visitorResult, date)
-        );
-    }
-
     private static String showMatches() {
         return matches.entrySet()
                       .stream()
-                      .map(entry -> (entry.getKey() + 1) + ". " + entry.getValue() )
+                      .map(entry -> (entry.getKey()) + ". " + entry.getValue() )
                       .collect(Collectors.joining(System.lineSeparator()));
     }
 
+    private static void addMatch() {
+        Match match = menu.getNewMatch();
+        matches.put(matches.size() + 1, match);
+    }
+
     private static void delMatch() {
-        // Todo
+        int numMatch = menu.getNumMatch();
+        matches.remove(numMatch);
     }
 
     private static String showMatchesDescending() {
@@ -91,16 +61,18 @@ public class Main {
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 
-    private static String showMatchesAscending() {
+    private static String showMarchesByDivison() {
+        System.out.println("Division: ");
+        Division division = menu.getDivision();
         return matches.entrySet().stream()
-                .sorted((e1, e2) -> e2.getValue().getDate().compareTo(e1.getValue().getDate()))
+                .filter(entry -> entry.getValue().getDivision() == division)
                 .map(entry -> (entry.getKey() + 1) + ". " + entry.getValue() )
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 
     private static void save() throws Exception {
         ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("Partidos.dat",true)
+                new FileOutputStream("Partidos.dat",false)
         );
         out.writeObject(matches);
         out.close();

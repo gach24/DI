@@ -24,7 +24,7 @@ public class SizedFrame extends JFrame {
         setLocationByPlatform(true);
 
         // Set icon frame
-        Image img = new ImageIcon("icon.gif").getImage();
+        Image img = new ImageIcon("/icon.gif").getImage();
         setIconImage(img);
     }
 }

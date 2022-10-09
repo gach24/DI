@@ -23,7 +23,41 @@ public class Menu {
         options.put(options.size() + 1, option);
     }
 
-    public int getOption() {
+
+    public Match getNewMatch() {
+        System.out.println("Introduce equipo local: ");
+        String local = getTeamName();
+        System.out.println(("Introduce equipo visitante: "));
+        String visitor = getTeamName();
+        System.out.println("Introduce resultado del equipo local: ");
+        int localResult = getResult();
+        System.out.println("Introduce resultado del equipo visitante: ");
+        int visitorResult = getResult();
+        System.out.println("Introduce la división del partido: ");
+        Division division = getDivision();
+        System.out.println("Introduce la fecha en formato dd/mm/aaaa");
+        Date date = getDate();
+        return new Match(local, visitor, division, localResult, visitorResult, date);
+    }
+
+    public int getOptionMenu() {
+        System.out.println("Opciones: ");
+        System.out.println(getStringMenu());
+        System.out.println("Elija opción: ");
+        return getOption();
+    }
+
+    public int getNumMatch() {
+        System.out.println("Introduzca un número de partido: ");
+        try {
+            int num = Integer.parseInt(in.nextLine());
+            return num > 0 ? num : 0;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    private int getOption() {
         try {
             int option =  Integer.parseInt(in.nextLine());
             if (option > 0 && option <= options.size())
@@ -35,7 +69,7 @@ public class Menu {
         }
     }
 
-    public int getResult() {
+    private int getResult() {
         try {
             int result =  Integer.parseInt(in.nextLine());
             if (result > 0 && result <= 999)
@@ -47,7 +81,7 @@ public class Menu {
         }
     }
 
-    public String getTeamName() {
+    private String getTeamName() {
         return in.nextLine();
     }
 
@@ -65,19 +99,17 @@ public class Menu {
         }
     }
 
-    public Date getDate() {
+    private Date getDate() {
         try {
-            return new SimpleDateFormat("dd/MMM/yyyy").parse(in.nextLine());
+            return new SimpleDateFormat("dd/mm/yyyy").parse(in.nextLine());
         } catch (Exception e) {
             return null;
         }
     }
 
-
-    public String getStringMenu() {
+    private String getStringMenu() {
         return options.entrySet().stream()
                 .map(entry -> entry.getKey() + ". " + entry.getValue() )
                 .collect(Collectors.joining(System.lineSeparator()));
     }
-
 }
