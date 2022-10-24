@@ -1,4 +1,6 @@
-package examples.unit01.components.e06_calculator_frame;
+package examples.unit01.components.jlabel.ip;
+
+import examples.unit01.components.jbutton.plaf.PlafFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,8 +8,8 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            CalculatorFrame frame = new CalculatorFrame();
-            frame.setTitle("Calculator");
+            JFrame frame = new IpFrame();
+            frame.setTitle("Ip ");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         });

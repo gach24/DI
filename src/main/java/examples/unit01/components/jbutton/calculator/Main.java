@@ -1,4 +1,4 @@
-package examples.unit01.components.e02_sized_frame;
+package examples.unit01.components.jbutton.calculator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,8 +6,8 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            SizedFrame frame = new SizedFrame();
-            frame.setTitle("SizedFrame");
+            CalculatorFrame frame = new CalculatorFrame();
+            frame.setTitle("Calculator");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         });

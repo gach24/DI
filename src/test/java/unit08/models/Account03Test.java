@@ -46,6 +46,7 @@ public class Account03Test {
         @EnabledOnOs(OS.LINUX)
         // @EnabledOnOs({ OS.WINDOWS, OS.LINUX })
         void testEnabledOnOperationSystem() {
+            fail();
         }
 
         /*
@@ -201,7 +202,7 @@ public class Account03Test {
          * Usually uses when there is something aleatory
          */
         @Tag("repeated")
-        @DisplayName("Probando repeted test: ")
+        @DisplayName("Probando repeated test: ")
         @RepeatedTest(value = 5, name = "{displayName} Repetición número = {currentRepetition} de {totalRepetitions}")
         void testRepeated(RepetitionInfo info) {
             System.out.println(info.getCurrentRepetition());

@@ -3,6 +3,7 @@ package examples.unit01.components.e13_menu_frame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class MenuFrame extends JFrame {
     private static final int DEFAULT_WIDTH = 300;
@@ -84,15 +85,15 @@ public class MenuFrame extends JFrame {
 
         // Demonstrate mnemonics
         JMenu helpMenu = new JMenu("Help");
-        helpMenu.setMnemonic('H');
+        helpMenu.setMnemonic(KeyEvent.VK_H);
 
         JMenuItem indexItem = new JMenuItem("Index");
-        indexItem.setMnemonic('I');
+        indexItem.setMnemonic(KeyEvent.VK_I);
         helpMenu.add(indexItem);
 
         // You can also add the mnemonic key to an action
         Action aboutAction = new TestAction("About");
-        aboutAction.putValue(Action.MNEMONIC_KEY, Character.getNumericValue('A'));
+        aboutAction.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_A);
         helpMenu.add(aboutAction);
 
         JMenuBar menuBar = new JMenuBar();
@@ -123,4 +124,5 @@ public class MenuFrame extends JFrame {
             System.out.println(getValue(Action.NAME) + " selected");
         }
     }
+
 }

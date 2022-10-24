@@ -1,4 +1,4 @@
-package examples.unit01.components.e02_sized_frame;
+package examples.unit01.components.jframe.sized;
 
 import java.awt.Toolkit;
 import java.awt.Dimension;

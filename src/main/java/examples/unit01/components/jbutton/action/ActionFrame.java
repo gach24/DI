@@ -1,4 +1,4 @@
-package examples.unit01.components.e05_action_frame;
+package examples.unit01.components.jbutton.action;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
 
@@ -25,8 +24,6 @@ public class ActionFrame extends JFrame {
     private JPanel buttonPanel = new JPanel();
     private static final int DEFAULT_WIDTH = 300;
     private static final int DEFAULT_HEIGHT = 200;
-
-
 
     public ActionFrame() {
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -78,17 +75,6 @@ public class ActionFrame extends JFrame {
         }
     }
 
-
-
-
-    public static void main(String args[]) {
-        EventQueue.invokeLater(() -> {
-            ActionFrame frame = new ActionFrame();
-            frame.setTitle("SizedFrame");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        });
-    }
 }
 
 

@@ -1,13 +1,16 @@
-package examples.unit01.components.e05_action_frame;
+package examples.unit01.components.jframe.simple;
 
 import javax.swing.JFrame;
 import java.awt.EventQueue;
 
-public class Main extends JFrame {
+/**
+ * Main Class
+ */
+public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            ActionFrame frame = new ActionFrame();
-            frame.setTitle("CalculatorFrame");
+            SimpleFrame frame = new SimpleFrame();
+            frame.setTitle("ActionFrame");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         });

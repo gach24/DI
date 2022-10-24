@@ -1,4 +1,4 @@
-package examples.unit01.components.e06_calculator_frame;
+package examples.unit01.components.jbutton.calculator;
 
 import javax.swing.*;
 

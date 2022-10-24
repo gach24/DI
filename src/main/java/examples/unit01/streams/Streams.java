@@ -82,7 +82,7 @@ public class Streams {
 
         System.out.println("************* Example three *****************");
         Stream<Fruit> otherFruits = Stream.of("Naranja", "Manzana", "Plátano", "Limón")
-                // .map(fruit -> new Fruit(fruit)) // another way
+                // .map(fruit -> new Fruit(fruit)); // another way
                 .map(Fruit::new); // Change string to Fruit class
         otherFruits.forEach(System.out::println);
 
@@ -107,9 +107,10 @@ public class Streams {
          * Return an optional of String
          */
         Optional<String> fruit = Stream.of("Naranja", "Manzana", "Plátano", "Limón", "Manzana")
-                .filter(f -> f.equals("Manzana"))
+                .filter(f -> f.equals("Manzanas"))
                 .findFirst();
-        System.out.println(fruit.get());
+        if (fruit.isPresent())
+            System.out.println(fruit.get());
 
         System.out.println("************* Example three *****************");
 
@@ -123,7 +124,8 @@ public class Streams {
     public static void example04() {
         System.out.println("************* Example one *****************");
         boolean exist =  Stream.of("Naranja", "Manzana", "Plátano", "Limón")
-                .anyMatch(fruit -> fruit.equals("Limón"));
+                .peek(System.out::println)
+                .anyMatch(fruit -> fruit.equals("Manzana"));
         System.out.println(exist);
     }
 
@@ -133,11 +135,13 @@ public class Streams {
     public static void example05() {
 
         System.out.println("************* Example one *****************");
+
         /**
          * Filter empty strings and count elements
          */
         long count = Stream.of("Naranja", "Manzana", "", "", "Plátano", "Limón")
-                .filter(String::isEmpty)
+                .filter(fruit -> fruit.isEmpty())
+                //  .filter(String::isEmpty)
                 .count();
         System.out.println(count);
 
@@ -164,7 +168,7 @@ public class Streams {
          * Include the first element
          * Not include the last element
          */
-        IntStream numbers = IntStream.range(5, 20);
+        IntStream numbers = IntStream.range(5, 21);
         // result = numbers.reduce(0, Integer::sum); // Another way
         result = numbers.sum();
         System.out.println(result);
@@ -213,10 +217,10 @@ public class Streams {
         /**
          * Infinite stream with limit
          */
-        Stream.generate(() -> "Infinite stream with limit")
+        /*Stream.generate(() -> "Infinite stream with limit")
                 .limit(20)
                 .forEach(System.out::println);
-
+        */
         System.out.println("************* Example three *****************");
         /**
          * Infinite stream of numbers with limit of 20
@@ -224,11 +228,11 @@ public class Streams {
         AtomicInteger counter = new AtomicInteger(0);
         Stream.generate(() -> {
                     try {
-                        TimeUnit.SECONDS.sleep(1);
+                        TimeUnit.MILLISECONDS.sleep(500);
                     } catch (InterruptedException e) { }
                     return  counter.incrementAndGet();
                 })
-                .limit(20)
+                .limit(40)
                 .forEach(System.out::println);
 
     }

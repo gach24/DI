@@ -1,16 +1,13 @@
-package examples.unit01.components.e01_simple_frame;
+package examples.unit01.components.jbutton.color;
 
-import javax.swing.JFrame;
-import java.awt.EventQueue;
+import javax.swing.*;
+import java.awt.*;
 
-/**
- * Main Class
- */
 public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            SimpleFrame frame = new SimpleFrame();
-            frame.setTitle("ActionFrame");
+            ButtonFrame frame = new ButtonFrame();
+            frame.setTitle("ButtonFrame");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         });

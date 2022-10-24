@@ -1,4 +1,4 @@
-package examples.unit01.components.e04_plaf_frame;
+package examples.unit01.components.jbutton.plaf;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

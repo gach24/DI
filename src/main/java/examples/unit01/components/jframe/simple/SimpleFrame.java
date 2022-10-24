@@ -1,4 +1,4 @@
-package examples.unit01.components.e01_simple_frame;
+package examples.unit01.components.jframe.simple;
 
 import javax.swing.JFrame;
 
