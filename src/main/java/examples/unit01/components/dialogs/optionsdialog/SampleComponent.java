@@ -1,4 +1,4 @@
-package examples.unit01.components.dialogs;
+package examples.unit01.components.dialogs.optionsdialog;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,4 @@
-package examples.unit01.components.dialogs;
-
-import examples.unit01.components.gridbag.FontFrame;
+package examples.unit01.components.dialogs.optionsdialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +6,7 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            FontFrame frame = new FontFrame();
+            JFrame frame = new OptionDialogFrame();
             frame.setTitle("TextComponentFrame");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);

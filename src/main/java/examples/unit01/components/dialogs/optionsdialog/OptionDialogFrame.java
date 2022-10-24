@@ -1,4 +1,4 @@
-package examples.unit01.components.dialogs;
+package examples.unit01.components.dialogs.optionsdialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,6 +63,12 @@ public class OptionDialogFrame extends JFrame {
 
         JPanel showPanel = new JPanel();
         JButton showButton = new JButton("Show");
+        showButton.addActionListener(new ShowAction());
+        showPanel.add(showButton);
+
+        add(gridPanel, BorderLayout.CENTER);
+        add(showPanel, BorderLayout.SOUTH);
+        pack();
     }
 
     /**
@@ -139,10 +145,42 @@ public class OptionDialogFrame extends JFrame {
                 );
             } else if (typePanel.getSelecction().equals("Input")) {
                 if (inputPanel.getSelecction().equals("Text field")) {
-
+                    JOptionPane.showInputDialog(
+                            OptionDialogFrame.this,
+                            getMessage(),
+                            "Title",
+                            getType(messageTypePanel)
+                    );
+                } else {
+                    JOptionPane.showInputDialog(
+                            OptionDialogFrame.this,
+                            getMessage(),
+                           "Title",
+                           getType(messageTypePanel),
+                            null,
+                            new String[] { "Yellow", "Blue", "Red"},
+                            "Blue"
+                    );
                 }
+            } else if (typePanel.getSelecction().equals("Message")) {
+                JOptionPane.showMessageDialog(
+                        OptionDialogFrame.this,
+                        getMessage(),
+                        "Title",
+                        getType(messageTypePanel)
+                );
+            } else if (typePanel.getSelecction().equals("Option")) {
+                JOptionPane.showOptionDialog(
+                        OptionDialogFrame.this,
+                        getMessage(),
+                        "Title",
+                        getType(optionTypePanel),
+                        getType(messageTypePanel),
+                        null,
+                        getOptions(),
+                        getOptions()[0]
+                );
             }
-
         }
     }
 }
