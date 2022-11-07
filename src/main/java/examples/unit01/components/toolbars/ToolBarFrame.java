@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 public class ToolBarFrame extends JFrame {
     private static final int DEFAULT_WIDTH = 300;
     private static final int DEFAULT_HEIGHT = 200;
+    private static final String PATH = "src/main/resources/";
     private JPanel panel;
 
     public ToolBarFrame() {
@@ -26,9 +27,9 @@ public class ToolBarFrame extends JFrame {
         add(panel, BorderLayout.CENTER);
 
         // setup actions
-        Action blueAction = new ColorAction("Blue", new ImageIcon("blue-ball.gif"), Color.BLUE);
-        Action yellowAction = new ColorAction("Yellow", new ImageIcon("yellow-ball.gif"), Color.YELLOW);
-        Action redAction = new ColorAction("Red", new ImageIcon("red-ball.gif"), Color.RED);
+        Action blueAction = new ColorAction("Blue", new ImageIcon(PATH + "blue-ball.gif"), Color.BLUE);
+        Action yellowAction = new ColorAction("Yellow", new ImageIcon(PATH +"yellow-ball.gif"), Color.YELLOW);
+        Action redAction = new ColorAction("Red", new ImageIcon(PATH + "red-ball.gif"), Color.RED);
 
         Action exitAction = new AbstractAction() {
             @Override
@@ -36,7 +37,7 @@ public class ToolBarFrame extends JFrame {
                 System.exit(0);
             }
         };
-        exitAction.putValue(Action.SHORT_DESCRIPTION, "Exit.gif");
+        exitAction.putValue(Action.SHORT_DESCRIPTION, PATH + "Exit.gif");
 
         JToolBar bar = new JToolBar();
         bar.add(blueAction);

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="examples.unit01.components.dialogs.optionpanels.OptionPanels">
+  <grid id="27dc6" binding="pnlButtons" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="3bebd" class="javax.swing.JButton" binding="btnMessage">
+        <constraints/>
+        <properties>
+          <text value="Message"/>
+        </properties>
+      </component>
+      <component id="a4dcc" class="javax.swing.JButton" binding="btnConfirm">
+        <constraints/>
+        <properties>
+          <text value="Confirm"/>
+        </properties>
+      </component>
+      <component id="2c43c" class="javax.swing.JButton" binding="btnInput">
+        <constraints/>
+        <properties>
+          <text value="Input"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

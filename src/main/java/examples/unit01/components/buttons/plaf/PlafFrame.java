@@ -41,7 +41,7 @@ public class PlafFrame extends JFrame {
             {
                 UIManager.setLookAndFeel(className);
                 SwingUtilities.updateComponentTreeUI(this);
-                pack();
+                // pack();
             } catch (Exception e)
             {
                 e.printStackTrace();

@@ -13,7 +13,7 @@ public class AboutDialog extends JDialog {
         );
 
         JButton ok = new JButton("OK");
-        ok.addActionListener(e -> setVisible(true));
+        ok.addActionListener(e -> setVisible(false));
 
         JPanel panel = new JPanel();
         panel.add(ok);
