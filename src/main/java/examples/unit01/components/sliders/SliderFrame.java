@@ -95,6 +95,8 @@ public class SliderFrame extends JFrame {
         slider.setLabelTable(labelTable);
         addSlider(slider, "Custom labels");
 
+
+
         // A slider with icon labels
         slider = new JSlider();
         slider.setPaintTicks(true);
@@ -105,12 +107,12 @@ public class SliderFrame extends JFrame {
 
         // Add card images
         labelTable = new Hashtable<>();
-        labelTable.put(0, new JLabel(new ImageIcon("nine.gif")));
-        labelTable.put(20, new JLabel(new ImageIcon("ten.gif")));
-        labelTable.put(40, new JLabel(new ImageIcon("jack.gif")));
-        labelTable.put(60, new JLabel(new ImageIcon("queen.gif")));
-        labelTable.put(80, new JLabel(new ImageIcon("king.gif")));
-        labelTable.put(100, new JLabel(new ImageIcon("ace.gif")));
+        labelTable.put(0, new JLabel(new ImageIcon("src/main/resources/nine.gif")));
+        labelTable.put(20, new JLabel(new ImageIcon("src/main/resources/ten.gif")));
+        labelTable.put(40, new JLabel(new ImageIcon("src/main/resources/jack.gif")));
+        labelTable.put(60, new JLabel(new ImageIcon("src/main/resources/queen.gif")));
+        labelTable.put(80, new JLabel(new ImageIcon("src/main/resources/king.gif")));
+        labelTable.put(100, new JLabel(new ImageIcon("src/main/resources/ace.gif")));
 
         slider.setLabelTable(labelTable);
         addSlider(slider, "Icon labels");
