@@ -1,15 +1,11 @@
-
 package examples.unit01.components.table.customtable.repositories;
 
-import examples.unit01.components.table.customtable.dtos.Alumno;
-
+import examples.unit01.components.table.customtable.dtos.Cliente;
 import java.util.List;
 
-/**
- *
- * @author German
- */
 public interface IClientesRepository {
-    public List<Alumno> getAll();
-    public void add(Alumno alumno);
+    public List<Cliente> getAll();
+    public void add(Cliente cliente);
+    public void delete(int i);
+    public Cliente find(int i);
 }

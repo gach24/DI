@@ -1,46 +1,26 @@
-package examples.unit01.components.table.customtable.ui.models;
+package com.german.ui.models;
 
-import examples.unit01.components.table.customtable.dtos.Alumno;
+import javax.swing.table.DefaultTableModel;
 
-import javax.swing.table.AbstractTableModel;
-import java.util.List;
-
-public class CustomModel extends AbstractTableModel {
-
-    private String[] columnas = { "Nombre", "Curso" };
+public class CustomModel extends DefaultTableModel {
     
-    private List<Alumno> alumnos;
-    
-    public CustomModel(List<Alumno> alumnos) {
-        this.alumnos = alumnos;
+    private String[] columnas = new String[] {
+        "Nombre",
+        "Apellido",
+        "Alta",
+        "Provincia"
+    };
+       
+    public CustomModel() {
+        this.setColumnIdentifiers(columnas);
     }
-    
     
     @Override
-    public int getRowCount() {
-        return alumnos.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return columnas.length;
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case 0: 
-                return alumnos.get(rowIndex).getNombre();
-            case 1: 
-                return alumnos.get(rowIndex).getCurso();
-        }
-        return null;
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return columnas[column];
+    public void setValueAt(Object obj, int r, int c) {
+        super.setValueAt(obj, r, c);
+        
+        System.out.println(obj);
     }
     
-     
+    
 }

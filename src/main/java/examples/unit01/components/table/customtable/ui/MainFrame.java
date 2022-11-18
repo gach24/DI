@@ -3,13 +3,11 @@ package examples.unit01.components.table.customtable.ui;
 
 import examples.unit01.components.table.customtable.services.ClientesService;
 import examples.unit01.components.table.customtable.services.IClientesService;
-import examples.unit01.components.table.customtable.ui.models.CustomModel;
-
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.RowFilter;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
+import examples.unit01.components.table.customtable.ui.models.ClientesModel;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.IntStream;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -17,33 +15,31 @@ import javax.swing.table.TableRowSorter;
  * @author German
  */
 public final class MainFrame extends javax.swing.JFrame {
-    
-    private IClientesService service;
-    private CustomModel model;
-    TableRowSorter<CustomModel> sorter;
 
+    private final IClientesService service = ClientesService.getInstance();
+    
     
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        service = ClientesService.getInstance();
         refreshModel();
-
     }
     
+    /*
     public void refreshModel() {
-        model = new CustomModel(service.getAll());
-        tblAlumnos.setModel(model);
-       
-        sorter = new TableRowSorter<>(model);
-        tblAlumnos.setRowSorter(sorter);
-       
-        List<RowSorter.SortKey> keys = new ArrayList<>();   
-        keys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-        sorter.setSortKeys(keys);
-
+        DefaultTableModel model = new CustomModel();
+        
+        for (Cliente c: service.getAll())
+            model.addRow(c.getValues());
+        tblClientes.setModel(model);
+    }
+    */
+    
+    public void refreshModel() {
+        ClientesModel model = new ClientesModel(service.getAll());
+        tblClientes.setModel(model);
     }
     
     
@@ -58,66 +54,86 @@ public final class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         scrollTable = new javax.swing.JScrollPane();
-        tblAlumnos = new javax.swing.JTable();
-        pnlButtons = new javax.swing.JPanel();
-        btnShow = new javax.swing.JButton();
-        lblResult = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField();
-        btnFilter = new javax.swing.JButton();
+        tblClientes = new javax.swing.JTable();
+        mnuBar = new javax.swing.JMenuBar();
+        mnuClientes = new javax.swing.JMenu();
+        mnuAltaCliente = new javax.swing.JMenuItem();
+        mnuDeleteSelected = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Formulario Clientes");
 
-        tblAlumnos.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {}
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-
+                "Apellidos", "Nombre", "Alta", "Provincia"
             }
-        ));
-        tblAlumnos.setName("tblAlumnos"); // NOI18N
-        scrollTable.setViewportView(tblAlumnos);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblClientes.setName("tblClientes"); // NOI18N
+        scrollTable.setViewportView(tblClientes);
 
         getContentPane().add(scrollTable, java.awt.BorderLayout.CENTER);
 
-        btnShow.setText("Show");
-        btnShow.addActionListener(new java.awt.event.ActionListener() {
+        mnuBar.setName("mnuBar"); // NOI18N
+
+        mnuClientes.setText("Clientes");
+        mnuClientes.setName("mnuClients"); // NOI18N
+
+        mnuAltaCliente.setText("Alta");
+        mnuAltaCliente.setName("mnuNewClient"); // NOI18N
+        mnuAltaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowActionPerformed(evt);
+                mnuAltaClienteActionPerformed(evt);
             }
         });
-        pnlButtons.add(btnShow);
-        pnlButtons.add(lblResult);
+        mnuClientes.add(mnuAltaCliente);
 
-        txtFilter.setColumns(15);
-        pnlButtons.add(txtFilter);
-
-        btnFilter.setText("Filter");
-        btnFilter.addActionListener(new java.awt.event.ActionListener() {
+        mnuDeleteSelected.setText("Borrar Seleccionados");
+        mnuDeleteSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilterActionPerformed(evt);
+                mnuDeleteSelectedActionPerformed(evt);
             }
         });
-        pnlButtons.add(btnFilter);
+        mnuClientes.add(mnuDeleteSelected);
 
-        getContentPane().add(pnlButtons, java.awt.BorderLayout.PAGE_END);
+        mnuBar.add(mnuClientes);
+
+        setJMenuBar(mnuBar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
-        int selected = tblAlumnos.convertRowIndexToModel(
-                tblAlumnos.getSelectedRow()
-        );
-        lblResult.setText(service.getAll().get(selected).getNombre());
-    }//GEN-LAST:event_btnShowActionPerformed
+    private void mnuAltaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAltaClienteActionPerformed
+        ClienteDialog clienteDialog = new ClienteDialog(this, true);
+        clienteDialog.setResizable(false);
+        clienteDialog.setVisible(true);
+        refreshModel();
+    }//GEN-LAST:event_mnuAltaClienteActionPerformed
 
-    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-        RowFilter<CustomModel, Integer> rf = RowFilter.regexFilter(txtFilter.getText(), 0);
-        sorter.setRowFilter(rf);
-    }//GEN-LAST:event_btnFilterActionPerformed
+    private void mnuDeleteSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeleteSelectedActionPerformed
+
+        // Obtengo los ids de cada cliente
+        int[] keys = IntStream.of(tblClientes.getSelectedRows())
+            .map(i -> (int)tblClientes.getValueAt(i,0))
+            .toArray();
+        
+        // Borro cada uno de los keys
+        IntStream.of(keys).forEach(service::delete);
+
+        
+        refreshModel();
+    }//GEN-LAST:event_mnuDeleteSelectedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,12 +171,11 @@ public final class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFilter;
-    private javax.swing.JButton btnShow;
-    private javax.swing.JLabel lblResult;
-    private javax.swing.JPanel pnlButtons;
+    private javax.swing.JMenuItem mnuAltaCliente;
+    private javax.swing.JMenuBar mnuBar;
+    private javax.swing.JMenu mnuClientes;
+    private javax.swing.JMenuItem mnuDeleteSelected;
     private javax.swing.JScrollPane scrollTable;
-    private javax.swing.JTable tblAlumnos;
-    private javax.swing.JTextField txtFilter;
+    private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
 }

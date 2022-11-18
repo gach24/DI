@@ -4,9 +4,9 @@
  */
 package examples.unit01.components.table.customtable.ui;
 
+import examples.unit01.components.table.customtable.dtos.Cliente;
 import examples.unit01.components.table.customtable.services.ClientesService;
 import examples.unit01.components.table.customtable.services.IClientesService;
-
 import java.util.Date;
 import java.awt.Frame;
 
@@ -16,12 +16,10 @@ import java.awt.Frame;
  */
 public class ClienteDialog extends javax.swing.JDialog {
 
-    private IClientesService service = ClientesService.getInstance();
-
+    private final IClientesService service = ClientesService.getInstance();
     
     public ClienteDialog(Frame parent, boolean modal) {
         super(parent, modal);
-
         initComponents();
         setSize(300, 200);
     }
@@ -62,7 +60,7 @@ public class ClienteDialog extends javax.swing.JDialog {
         lblFechaAlta.setText("Fecha Alta");
         getContentPane().add(lblFechaAlta);
 
-        spnFechaAlta.setModel(new javax.swing.SpinnerDateModel(new Date(), new Date(946681200000L), null, java.util.Calendar.DAY_OF_MONTH));
+        spnFechaAlta.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(946681200000L), null, java.util.Calendar.DAY_OF_MONTH));
         getContentPane().add(spnFechaAlta);
 
         lblProvincia.setText("Provincia");
@@ -91,18 +89,15 @@ public class ClienteDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-
-        /*
-        Cliente cliente = new Cliente();
-        cliente.setNombre(txtNombre.getText());
-        cliente.setApellido(txtApellidos.getText());
-        cliente.setAlta(new Date());
-        cliente.setProvincia(cmbProvincia.getItemAt(cmbProvincia.getSelectedIndex()));
+        Cliente cliente = new Cliente(
+                txtNombre.getText(),
+                txtApellidos.getText(),
+                (Date)spnFechaAlta.getValue(),
+                (String)cmbProvincia.getSelectedItem()
+        );
         
         service.add(cliente);
-        */
-        setVisible(false);
-
+        dispose();
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
