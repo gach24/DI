@@ -1,13 +1,16 @@
 
 package examples.unit01.components.table.customtable.ui;
 
+import com.german.ui.models.CustomModel;
 import examples.unit01.components.table.customtable.services.ClientesService;
 import examples.unit01.components.table.customtable.services.IClientesService;
 import examples.unit01.components.table.customtable.ui.models.ClientesModel;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.RowFilter;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -17,8 +20,8 @@ import javax.swing.table.TableRowSorter;
 public final class MainFrame extends javax.swing.JFrame {
 
     private final IClientesService service = ClientesService.getInstance();
-    
-    
+    private ClientesModel model;
+    private TableRowSorter<ClientesModel> sorter;
     /**
      * Creates new form MainFrame
      */
@@ -27,19 +30,16 @@ public final class MainFrame extends javax.swing.JFrame {
         refreshModel();
     }
     
-    /*
     public void refreshModel() {
-        DefaultTableModel model = new CustomModel();
+        model = new ClientesModel(service.getAll());
+        tblClientes.setModel(model);
         
-        for (Cliente c: service.getAll())
-            model.addRow(c.getValues());
-        tblClientes.setModel(model);
-    }
-    */
-    
-    public void refreshModel() {
-        ClientesModel model = new ClientesModel(service.getAll());
-        tblClientes.setModel(model);
+        sorter = new TableRowSorter<>(model);
+        tblClientes.setRowSorter(sorter);
+        
+        List<RowSorter.SortKey> keys = new ArrayList<>();   
+        keys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sorter.setSortKeys(keys);
     }
     
     
@@ -55,6 +55,9 @@ public final class MainFrame extends javax.swing.JFrame {
 
         scrollTable = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btnFilter = new javax.swing.JButton();
+        txtFilter = new javax.swing.JTextField();
         mnuBar = new javax.swing.JMenuBar();
         mnuClientes = new javax.swing.JMenu();
         mnuAltaCliente = new javax.swing.JMenuItem();
@@ -84,6 +87,19 @@ public final class MainFrame extends javax.swing.JFrame {
         scrollTable.setViewportView(tblClientes);
 
         getContentPane().add(scrollTable, java.awt.BorderLayout.CENTER);
+
+        btnFilter.setText("Filtrar");
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnFilter);
+
+        txtFilter.setColumns(20);
+        jPanel1.add(txtFilter);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
         mnuBar.setName("mnuBar"); // NOI18N
 
@@ -131,9 +147,14 @@ public final class MainFrame extends javax.swing.JFrame {
         // Borro cada uno de los keys
         IntStream.of(keys).forEach(service::delete);
 
-        
+        // Refresh the model
         refreshModel();
     }//GEN-LAST:event_mnuDeleteSelectedActionPerformed
+
+    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
+        RowFilter<ClientesModel, Integer> rf = RowFilter.regexFilter(txtFilter.getText());
+        sorter.setRowFilter(rf);
+    }//GEN-LAST:event_btnFilterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,11 +192,14 @@ public final class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFilter;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem mnuAltaCliente;
     private javax.swing.JMenuBar mnuBar;
     private javax.swing.JMenu mnuClientes;
     private javax.swing.JMenuItem mnuDeleteSelected;
     private javax.swing.JScrollPane scrollTable;
     private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 }

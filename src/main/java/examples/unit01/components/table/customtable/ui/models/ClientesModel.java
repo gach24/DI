@@ -84,8 +84,7 @@ public class ClientesModel extends AbstractTableModel {
     
     @Override
     public boolean isCellEditable(int row, int column) {
-        // return column != 0;
-        return true;
+        return column != 0;
     }
     
     
@@ -94,9 +93,6 @@ public class ClientesModel extends AbstractTableModel {
     {
         Cliente cliente = clientes.get(rowIndex);
         switch (columnIndex) {
-            case 0 -> {
-                cliente.setId((int) value);
-            }
             case 1 -> {
                 cliente.setNombre((String)value);
             }
