@@ -1,10 +1,7 @@
-package examples.unit01.components.listboxes;
-
-import examples.unit01.components.labels.ip.IpFrame;
+package examples.unit01.components.listboxes.List;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 class ListExample extends JFrame
 {
